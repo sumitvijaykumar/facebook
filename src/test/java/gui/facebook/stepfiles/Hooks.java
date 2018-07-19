@@ -1,8 +1,13 @@
 package gui.facebook.stepfiles;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -11,23 +16,27 @@ public class Hooks {
 	public static WebDriver driver;
 
 	@Before
-	public void configBrowser() {
+	public void configBrowser() throws MalformedURLException {
 		System.setProperty("webdriver.chrome.driver", "src\\test\\java\\gui\\facebook\\resources\\chromedriver.exe");
 		System.setProperty("webdriver.gecko.driver", "src\\test\\java\\gui\\facebook\\resources\\geckodriver.exe");
 		String browser = System.getProperty("browser");
 		if (browser==null){
 			browser = System.getenv("browser");
 			if (browser==null){
-				browser = "firefox";
+				browser = "ff";
 			}
 		}
 		
 		if(browser.equalsIgnoreCase("chrome")){
-			driver = new ChromeDriver();
+			//driver = new ChromeDriver();
+			DesiredCapabilities cap = DesiredCapabilities.chrome();
+			driver = new RemoteWebDriver(new URL("http://54.146.174.3:32768/wd/hub"), cap);
 		}
 		
 		else if(browser.equalsIgnoreCase("ff")){
-			driver = new FirefoxDriver();
+			//driver = new FirefoxDriver();
+			DesiredCapabilities cap = DesiredCapabilities.firefox();
+			driver = new RemoteWebDriver(new URL("http://54.146.174.3:32769/wd/hub"), cap);
 		}
 		
 		else{
@@ -40,7 +49,7 @@ public class Hooks {
 	
 	@After
 	public void getScreenShot(){
-		System.out.println("Getting screenshot");
+		System.out.println("Screenshot logic here");
 		driver.quit();
 	}
 	
