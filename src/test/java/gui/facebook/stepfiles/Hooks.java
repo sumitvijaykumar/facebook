@@ -30,13 +30,13 @@ public class Hooks {
 		if(browser.equalsIgnoreCase("chrome")){
 			//driver = new ChromeDriver();
 			DesiredCapabilities cap = DesiredCapabilities.chrome();
-			driver = new RemoteWebDriver(new URL("http://54.146.174.3:32768/wd/hub"), cap);
+			driver = new RemoteWebDriver(new URL("http://localhost:32768/wd/hub"), cap);
 		}
 		
 		else if(browser.equalsIgnoreCase("ff")){
 			//driver = new FirefoxDriver();
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
-			driver = new RemoteWebDriver(new URL("http://54.146.174.3:32769/wd/hub"), cap);
+			driver = new RemoteWebDriver(new URL("http://localhost:32769/wd/hub"), cap);
 		}
 		
 		else{
