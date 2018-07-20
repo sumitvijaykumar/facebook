@@ -34,7 +34,7 @@ public class Hooks {
 		}
 		
 		else if(browser.equalsIgnoreCase("ff")){
-			//driver = new FirefoxDriver();
+			driver = new FirefoxDriver();
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
 			driver = new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"), cap);
 		}
