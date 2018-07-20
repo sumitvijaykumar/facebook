@@ -2,6 +2,7 @@ package gui.facebook.stepfiles;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,16 +29,15 @@ public class Hooks {
 		}
 		
 		if(browser.equalsIgnoreCase("chrome")){
-			//driver = new ChromeDriver();
-		
-			DesiredCapabilities cap = DesiredCapabilities.chrome();
-			driver = new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"), cap);
+			driver = new ChromeDriver();
+			/*DesiredCapabilities cap = DesiredCapabilities.chrome();
+			driver = new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"), cap);*/
 		}
 		
 		else if(browser.equalsIgnoreCase("ff")){
-			//driver = new FirefoxDriver();
-			DesiredCapabilities cap = DesiredCapabilities.firefox();
-			driver = new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"), cap);
+			driver = new FirefoxDriver();
+			/*DesiredCapabilities cap = DesiredCapabilities.firefox();
+			driver = new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"), cap);*/
 		}
 		
 		else{
@@ -45,6 +45,7 @@ public class Hooks {
 		}
 		
 		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 	}
 	
