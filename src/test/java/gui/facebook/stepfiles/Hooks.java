@@ -29,6 +29,7 @@ public class Hooks {
 		
 		if(browser.equalsIgnoreCase("chrome")){
 			//driver = new ChromeDriver();
+			
 			DesiredCapabilities cap = DesiredCapabilities.chrome();
 			driver = new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"), cap);
 		}
