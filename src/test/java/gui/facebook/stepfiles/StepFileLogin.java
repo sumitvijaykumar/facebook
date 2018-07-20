@@ -10,8 +10,8 @@ public class StepFileLogin {
 	@Given("^user is already logged in$")
 	public void user_is_already_logged_in() throws Throwable {
 		loginElements.visitWebApp();
-		loginElements.setUsername("sumitpawar0@yahoo.com");
-		loginElements.setPassword("testUser123");
+		loginElements.setUsername("");
+		loginElements.setPassword("");
 		loginElements.clickLogin();
 	}
 
