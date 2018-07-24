@@ -1,38 +1,51 @@
 package gui.facebook.stepfiles;
 
 import cucumber.api.java.en.*;
+import gui.facebook.resources.PageFactoryHome;
 import gui.facebook.resources.PageFactoryLogin;
+import junit.framework.Assert;
 
 public class StepFileLogin {
-	
-	PageFactoryLogin loginElements = new PageFactoryLogin(Hooks.driver);
 
+	PageFactoryLogin loginElements = new PageFactoryLogin(Hooks.driver);
+	PageFactoryHome homepageElements = new PageFactoryHome(Hooks.driver);
+
+	@SuppressWarnings("deprecation")
 	@Given("^user is already logged in$")
 	public void user_is_already_logged_in() throws Throwable {
 		loginElements.visitWebApp();
-		loginElements.setUsername("");
-		loginElements.setPassword("");
+		loginElements.setUsername("sumitpawar0@yahoo.com");
+		loginElements.setPassword("myFb123#");
 		loginElements.clickLogin();
 	}
 
 	@When("^user writes status \"([^\"]*)\"$")
-	public void user_writes_status(String arg1) throws Throwable {
+	public void user_writes_status(String string) throws Throwable {
+		// Assert.assertTrue(homepageElements.getElementStatusBox().isDisplayed());
+		homepageElements.clickIconHome();
+		homepageElements.setStatusText(string);
 	}
 
 	@When("^user checks in location \"([^\"]*)\"$")
-	public void user_checks_in_location(String arg1) throws Throwable {
+	public void user_checks_in_location(String location) throws Throwable {
+		homepageElements.clickMore();
+		homepageElements.setCheckinLocation(location);
 	}
 
 	@When("^user tags a \"([^\"]*)\"$")
 	public void user_tags_a(String arg1) throws Throwable {
+		homepageElements.setTagFriend(arg1);
 	}
 
 	@When("^user chooses \"([^\"]*)\" as \"([^\"]*)\"$")
-	public void user_chooses_as(String arg1, String arg2) throws Throwable {
+	public void user_chooses_as(String activity, String mood) throws Throwable {
+		homepageElements.setFeeling(activity);
+		homepageElements.setFeelingMood(mood);
 	}
 
 	@When("^user posts status$")
 	public void user_posts_status() throws Throwable {
+		homepageElements.clickButtonPost();
 	}
 
 	@Then("^user should see status on home page with \"([^\"]*)\"$")
