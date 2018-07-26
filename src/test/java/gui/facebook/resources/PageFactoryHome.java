@@ -40,6 +40,15 @@ public class PageFactoryHome {
 
 	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/a[2]")
 	WebElement textRecentPostLocation;
+	
+	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/span/a[1]")
+	WebElement linkUserInTimeline;
+	
+	@FindBy(xpath="(.//a[@aria-label='Story options'])[1]")
+	WebElement buttonStoryOption;
+	
+	@FindBy(xpath=".//a[@data-feed-option-name='FeedDeleteOption']")
+	WebElement buttonStoryDelete;
 
 	@FindBy(xpath=".//div[@data-tooltip-content='Photo/Video']")
 	WebElement buttonPhotosVideos;
@@ -47,7 +56,7 @@ public class PageFactoryHome {
 	@FindBy(xpath=".//div[@data-tooltip-content='Feeling/Activity']")
 	WebElement buttonFeeling;
 	
-	@FindBy(xpath=".//div[@data-testid='ellipsis-sprout']/..")
+	@FindBy(xpath=".//div[@data-testid='ellipsis-sprout']")
 	WebElement buttonStatusMore;
 	
 	@FindBy(xpath=".//div[@data-tooltip-content='Tag friends']")
@@ -73,7 +82,6 @@ public class PageFactoryHome {
 	
 	@FindBy(xpath=".//tbody/tr/td/span//input")
 	WebElement textboxMood;
-	
 	
 	public PageFactoryHome(WebDriver driver){
 		this.driver = driver;
@@ -127,7 +135,7 @@ public class PageFactoryHome {
 	public void setCheckinLocation(String location) throws InterruptedException{
 		buttonCheckin.click();
 		textboxCheckin.sendKeys(location);
-		Thread.sleep(2000); //TODO Remove thread.sleep
+		Thread.sleep(3000); //TODO Remove thread.sleep
 		listFirstElement.click();
 	}
 	
@@ -157,4 +165,10 @@ public class PageFactoryHome {
 		return activity;
 	}
 	
+	public void deleteLastPosts(){
+		if(linkUserInTimeline.getText()=="Jack Jackals"){
+			buttonStoryOption.click();
+			buttonStoryDelete.click();
+		}
+	}
 }

@@ -50,12 +50,13 @@ public class Hooks {
 			System.out.println("invalid browser type:"+ browser);
 		}
 		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
 	
 	@After
 	public void getScreenShot(){
+		
 		System.out.println("Screenshot logic here");
 		driver.quit();
 	}

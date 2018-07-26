@@ -1,6 +1,5 @@
 package gui.facebook.stepfiles;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import cucumber.api.java.en.*;
@@ -69,5 +68,4 @@ public class StepFileLogin {
 		homepageElements.getPostedStatusActivity().contains(activity);
 		homepageElements.getPostedStatusActivity().contains(mood);
 	}
-
 }

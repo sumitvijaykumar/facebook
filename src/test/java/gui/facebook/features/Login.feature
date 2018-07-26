@@ -3,7 +3,8 @@ Feature: As a newly signed up user on Facebook, user goes on exploring facebook 
 Background:
 	Given user is already logged in
 
-Scenario Outline: User should post and see different kinds of status on it's wall which includes tagging a friend, adding an activity and checking in on a location.
+Scenario Outline: 
+User should post and see different kinds of status on it's wall which includes tagging a friend, adding an activity and checking in on a location.
 
 	When user writes status "<text>"
 	And user checks in location "<location>"
