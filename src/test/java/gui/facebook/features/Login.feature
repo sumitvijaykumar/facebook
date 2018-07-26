@@ -1,7 +1,10 @@
-Feature: This feature files contains basic test scenario for facebook web app
+Feature: As a newly signed up user on Facebook, user goes on exploring facebook app and gets started with using facebook.
 
-Scenario Outline: To test status update on web app using text, location, tagged friend and mood
+Background:
 	Given user is already logged in
+
+Scenario Outline: User should post and see different kinds of status on it's wall which includes tagging a friend, adding an activity and checking in on a location.
+
 	When user writes status "<text>"
 	And user checks in location "<location>"
 	And user tags a "<friend>" 
@@ -14,4 +17,4 @@ Scenario Outline: To test status update on web app using text, location, tagged 
 	
 	Examples:
 	|text|location|friend|feeling|mood|
-	|Wonderful place to explore|Bali|Sumit|feeling|excited|
+	|Wonderful place to explore|Bali|Sumit Vijaykumar|feeling|happy|
