@@ -1,17 +1,20 @@
 package gui.facebook.config;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.testng.TestNGCucumberRunner;
-import cucumber.api.testng.CucumberFeatureWrapper;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import cucumber.api.CucumberOptions;
+import cucumber.api.testng.CucumberFeatureWrapper;
+import cucumber.api.testng.TestNGCucumberRunner;
+import gui.facebook.reports.ReportGeneration;
+import gui.facebook.stepfiles.Hooks;
+
 @CucumberOptions(
 		features = "src/test/java/gui/facebook/features", 
 		glue = { "gui.facebook.stepfiles" },
-		tags={"~@ignore"},
+		tags={"@post"},
 		format= {
 				"pretty",
 				"html:target/cucumber-reports/cucumber-pretty",
@@ -25,7 +28,6 @@ public class TestRunner {
 	@BeforeClass(alwaysRun=true)
 	public void setUpClass(){
 		testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
-		
 	}
 	
 	@Test(groups = "cucumber", description = "Cucumber feature file runner", dataProvider = "features")
@@ -41,6 +43,9 @@ public class TestRunner {
 	@AfterClass(alwaysRun = true)
 	public void tearDownClass(){
 		testNGCucumberRunner.finish();
+		new ReportGeneration();
+		Hooks.driver.quit();
 	}
+	
 	
 }

@@ -5,8 +5,10 @@ import org.testng.Assert;
 import cucumber.api.java.en.*;
 import gui.facebook.resources.PageFactoryHome;
 import gui.facebook.resources.PageFactoryLogin;
+import gui.facebook.resources.Then;
+import gui.facebook.resources.When;
 
-public class StepFileLogin {
+public class StepFileHomePage {
 
 	PageFactoryLogin loginElements = new PageFactoryLogin(Hooks.driver);
 	PageFactoryHome homepageElements = new PageFactoryHome(Hooks.driver);
@@ -68,4 +70,29 @@ public class StepFileLogin {
 		homepageElements.getPostedStatusActivity().contains(activity);
 		homepageElements.getPostedStatusActivity().contains(mood);
 	}
+	
+	@When("^user searches for a friend having ID \"([^\"]*)\"$")
+	public void user_searches_for_a_friend_having_ID(String id) {
+		homepageElements.navigateToUrl("http://www.facebook.com/"+id);
+	}
+
+	@When("^user sends friend request$")
+	public void user_sends_friend_request(){
+		homepageElements.clickButtonAddFriend();
+	}
+
+	@When("^friend accepts friend request$")
+	public void friend_accepts_friend_request(){
+		
+	}
+
+	@Then("^both friend should be connected$")
+	public void both_friend_should_be_connected(){
+	}
+
+	@Then("^both friend should be visible in friend list of each other$")
+	public void both_friend_should_be_visible_in_friend_list_of_each_other(){
+	}
+	
+	
 }

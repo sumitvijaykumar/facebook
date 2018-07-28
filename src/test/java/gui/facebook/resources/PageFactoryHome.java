@@ -1,174 +1,193 @@
 package gui.facebook.resources;
 
-import org.openqa.selenium.By;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 public class PageFactoryHome {
 	WebDriver driver;
-	
-	@FindBy(xpath=".//div[@data-click='home_icon']")
+
+	private static final Logger logsHomePage = LogManager.getLogger(PageFactoryHome.class.getName());
+
+	@FindBy(xpath = ".//div[@data-click='home_icon']")
 	WebElement iconHome;
-	
-	@FindBy(xpath=".//div[@data-click='profile_icon']")
+
+	@FindBy(xpath = ".//div[@data-click='profile_icon']")
 	WebElement iconProfile;
 
-	@FindBy(xpath=".//textarea[@name='xhpc_message']")
+	@FindBy(xpath = ".//textarea[@name='xhpc_message']")
 	WebElement textBoxStatus;
-	
-	@FindBy(xpath=".//span[text()='Post']")
+
+	@FindBy(xpath = ".//span[text()='Post']")
 	WebElement buttonPost;
-	
-	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]")
+
+	@FindBy(xpath = ".//div[@aria-label='News Feed']/div[@role='article'][1]")
 	WebElement recentPost;
 
-	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]//p")
+	@FindBy(xpath = ".//div[@aria-label='News Feed']/div[@role='article'][1]//p")
 	WebElement recentPostText;
-	
-	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]//h5//span/span")
+
+	@FindBy(xpath = ".//div[@aria-label='News Feed']/div[@role='article'][1]//h5//span/span")
 	WebElement textRecentPostActivityMood;
 
-	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/a[1]")
+	@FindBy(xpath = ".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/a[1]")
 	WebElement textRecentPostTaggedFriend;
 
-	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/a[2]")
+	@FindBy(xpath = ".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/a[2]")
 	WebElement textRecentPostLocation;
-	
-	@FindBy(xpath=".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/span/a[1]")
+
+	@FindBy(xpath = ".//div[@aria-label='News Feed']/div[@role='article'][1]//h5/span/span/span/a[1]")
 	WebElement linkUserInTimeline;
-	
-	@FindBy(xpath="(.//a[@aria-label='Story options'])[1]")
+
+	@FindBy(xpath = "(.//a[@aria-label='Story options'])[1]")
 	WebElement buttonStoryOption;
-	
-	@FindBy(xpath=".//a[@data-feed-option-name='FeedDeleteOption']")
+
+	@FindBy(xpath = ".//a[@data-feed-option-name='FeedDeleteOption']")
 	WebElement buttonStoryDelete;
 
-	@FindBy(xpath=".//div[@data-tooltip-content='Photo/Video']")
+	@FindBy(xpath = ".//div[@data-tooltip-content='Photo/Video']")
 	WebElement buttonPhotosVideos;
-	
-	@FindBy(xpath=".//div[@data-tooltip-content='Feeling/Activity']")
+
+	@FindBy(xpath = ".//div[@data-tooltip-content='Feeling/Activity']")
 	WebElement buttonFeeling;
-	
-	@FindBy(xpath=".//div[@data-testid='ellipsis-sprout']")
+
+	@FindBy(xpath = ".//div[@data-testid='ellipsis-sprout']")
 	WebElement buttonStatusMore;
-	
-	@FindBy(xpath=".//div[@data-tooltip-content='Tag friends']")
+
+	@FindBy(xpath = ".//div[@data-tooltip-content='Tag friends']")
 	WebElement buttonTagFriends;
-	
-	@FindBy(xpath=".//div[@data-tooltip-content='Check in']")
+
+	@FindBy(xpath = ".//div[@data-tooltip-content='Check in']")
 	WebElement buttonCheckin;
-	
-	@FindBy(xpath=".//input[@placeholder='Choose a feeling or activity...']")
+
+	@FindBy(xpath = ".//input[@placeholder='Choose a feeling or activity...']")
 	WebElement textboxFeeling;
-	
-	@FindBy(xpath=".//input[@placeholder='Where are you?']")
+
+	@FindBy(xpath = ".//input[@placeholder='Where are you?']")
 	WebElement textboxCheckin;
-	
-	@FindBy(xpath=".//input[@placeholder='Who are you with?']")
+
+	@FindBy(xpath = ".//input[@placeholder='Who are you with?']")
 	WebElement textboxFriends;
-	
-	@FindBy(xpath=".//div[@class='uiScrollableAreaBody']//ul/li[@aria-selected='true']")
+
+	@FindBy(xpath = ".//span[@class='withToken']")
+	WebElement linkSelectedFriend;
+
+	@FindBy(xpath = ".//div[@class='uiScrollableAreaBody']//ul/li[@aria-selected='true']")
 	WebElement listSelected;
-	
-	@FindBy(xpath=".//ul[@role='listbox']/li[1]")
+
+	@FindBy(xpath = ".//ul[@role='listbox']/li[1]")
 	WebElement listFirstElement;
-	
-	@FindBy(xpath=".//tbody/tr/td/span//input")
+
+	@FindBy(xpath = ".//tbody/tr/td/span//input")
 	WebElement textboxMood;
 	
-	public PageFactoryHome(WebDriver driver){
+	@FindBy(xpath=".//button[contains(@class,'FriendRequestAdd')]")
+	WebElement buttonAddFriend;
+
+	public PageFactoryHome(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
-	public void reloadPage(){
+
+	public void reloadPage() {
 		driver.navigate().refresh();
 	}
-	
-	public void clickIconHome(){
+
+	public void clickIconHome() {
 		iconHome.click();
 	}
-	
-	public void clickIconProfile(){
+
+	public void clickIconProfile() {
 		iconProfile.click();
-		
 	}
-	
-	public WebElement getElementStatusBox(){
+
+	public WebElement getElementStatusBox() {
 		return textBoxStatus;
 	}
-	
-	public void setStatusText(String status) throws InterruptedException{
+
+	public void setStatusText(String status) throws InterruptedException {
 		textBoxStatus.sendKeys(status);
 	}
-	
-	public void setFeeling(String feeling){
+
+	public void setFeeling(String feeling) {
 		buttonFeeling.click();
 		textboxFeeling.sendKeys(feeling);
 		listFirstElement.click();
-		
 	}
-	
-	public void setFeelingMood(String mood) throws InterruptedException{
+
+	public void setFeelingMood(String mood) throws InterruptedException {
 		textboxMood.sendKeys(mood);
-		Thread.sleep(1000); //TODO Remove thread.sleep
+		Thread.sleep(1000); // TODO Remove thread.sleep
 		listFirstElement.click();
 	}
-	
-	public void clickMore() throws InterruptedException{
+
+	public void clickMore() throws InterruptedException {
 		buttonStatusMore.click();
 	}
-	
-	public void setTagFriend(String friend) throws InterruptedException{
-		buttonTagFriends.click();
-		textboxFriends.sendKeys(friend);
-		textboxFriends.sendKeys(Keys.RETURN);
+
+	public void setTagFriend(String friend) throws InterruptedException {
+		try {
+			buttonTagFriends.click();
+			textboxFriends.sendKeys(friend);
+			textboxFriends.sendKeys(Keys.RETURN);
+			linkSelectedFriend.getText().contains(friend);
+		} catch (Exception e) {
+			logsHomePage.error("Selected friend link not found on compose dialog box.");
+		}
 	}
-	
-	public void setCheckinLocation(String location) throws InterruptedException{
+
+	public void setCheckinLocation(String location) throws InterruptedException {
 		buttonCheckin.click();
 		textboxCheckin.sendKeys(location);
-		Thread.sleep(3000); //TODO Remove thread.sleep
+		Thread.sleep(3000); // TODO Remove thread.sleep
 		listFirstElement.click();
 	}
-	
-	public void clickButtonPost(){
+
+	public void clickButtonPost() {
 		buttonPost.click();
 		WebDriverWait wait = new WebDriverWait(this.driver, 5);
 		wait.until(ExpectedConditions.visibilityOf(recentPost));
 	}
-	
-	public String getPostedStatusText() throws InterruptedException{
+
+	public String getPostedStatusText() throws InterruptedException {
 		String postedText = recentPostText.getText();
 		return postedText;
 	}
-	
-	public String getPostedStatusFriend(){
+
+	public String getPostedStatusFriend() {
 		String taggedFriend = textRecentPostTaggedFriend.getText();
 		return taggedFriend;
 	}
-	
-	public String getPostedStatusLocation(){
+
+	public String getPostedStatusLocation() {
 		String location = textRecentPostLocation.getText();
 		return location;
 	}
-	
-	public String getPostedStatusActivity(){
+
+	public String getPostedStatusActivity() {
 		String activity = textRecentPostActivityMood.getText();
 		return activity;
 	}
-	
-	public void deleteLastPosts(){
-		if(linkUserInTimeline.getText()=="Jack Jackals"){
+
+	public void deleteLastPosts() {
+		if (linkUserInTimeline.getText() == "Jack Jackals") {
 			buttonStoryOption.click();
 			buttonStoryDelete.click();
 		}
 	}
+	
+	public void navigateToUrl(String url){
+		driver.get(url);	
+	}
+	
+	public void clickButtonAddFriend(){
+		buttonAddFriend.click();
+	}
+
 }
