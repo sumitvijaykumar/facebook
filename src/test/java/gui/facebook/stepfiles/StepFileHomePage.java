@@ -97,5 +97,4 @@ public class StepFileHomePage {
 		friendProfilePage.clickProfileIcon();
 		Assert.assertTrue(friendProfilePage.verifyFriendPresent(friend));
 	}
-
 }
