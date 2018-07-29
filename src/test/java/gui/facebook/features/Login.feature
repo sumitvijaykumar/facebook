@@ -8,11 +8,11 @@ Scenario:
 As a logged in user, user should be able to search a friend on facebook and send him a friend request.
 Once the friend approves the friend request, user should see a notification for newly connected friend.
 
-	When user searches for a friend having ID "ladee.bhaga.3"
-	And user sends friend request
-	And friend accepts friend request
-	Then both friend should be connected
-	And both friend should be visible in friend list of each other
+	When Jack searches for a friend having ID "ladee.bhaga.3"
+	And Jack sends friend request
+	And friend accepts request from "Jack"
+	Then "Jack" should be visible in friend list
+	Then both friend should be visible in friend list of each other
 
 Scenario Outline:
 As a logged in user, two connected friend should be able to send facebook messages to each other.

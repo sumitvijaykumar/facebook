@@ -1,7 +1,10 @@
 package gui.facebook.resources;
 
+import java.util.concurrent.TimeUnit;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +12,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import gui.facebook.stepfiles.Hooks;
 
 public class PageFactoryHome {
 	WebDriver driver;
@@ -86,13 +91,17 @@ public class PageFactoryHome {
 
 	@FindBy(xpath = ".//tbody/tr/td/span//input")
 	WebElement textboxMood;
-	
-	@FindBy(xpath=".//button[contains(@class,'FriendRequestAdd')]")
+
+	@FindBy(xpath = ".//button[contains(@class,'FriendRequestAdd')]")
 	WebElement buttonAddFriend;
+	
+	@FindBy(xpath=".//a[@data-tooltip-content='Friend requests']")
+	WebElement buttonIconFriend;
 
 	public PageFactoryHome(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		logsHomePage.info("Home page factory initialized.");
 	}
 
 	public void reloadPage() {
@@ -116,15 +125,23 @@ public class PageFactoryHome {
 	}
 
 	public void setFeeling(String feeling) {
-		buttonFeeling.click();
-		textboxFeeling.sendKeys(feeling);
-		listFirstElement.click();
+		try {
+			buttonFeeling.click();
+			textboxFeeling.sendKeys(feeling);
+			listFirstElement.click();
+		} catch (Exception e) {
+			logsHomePage.error("Not able to set activity.");
+		}
 	}
 
 	public void setFeelingMood(String mood) throws InterruptedException {
-		textboxMood.sendKeys(mood);
-		Thread.sleep(1000); // TODO Remove thread.sleep
-		listFirstElement.click();
+		try {
+			textboxMood.sendKeys(mood);
+			Thread.sleep(1000); // TODO Remove thread.sleep
+			listFirstElement.click();
+		} catch (Exception e) {
+			logsHomePage.error("Not able to set activity.");
+		}
 	}
 
 	public void clickMore() throws InterruptedException {
@@ -143,16 +160,25 @@ public class PageFactoryHome {
 	}
 
 	public void setCheckinLocation(String location) throws InterruptedException {
-		buttonCheckin.click();
-		textboxCheckin.sendKeys(location);
-		Thread.sleep(3000); // TODO Remove thread.sleep
-		listFirstElement.click();
+		try{
+			buttonCheckin.click();
+			textboxCheckin.sendKeys(location);
+			Thread.sleep(3000); // TODO Remove thread.sleep
+			listFirstElement.click();
+		}catch(Exception e){
+			logsHomePage.error("Not able to set check in location.");
+		}
 	}
 
 	public void clickButtonPost() {
-		buttonPost.click();
-		WebDriverWait wait = new WebDriverWait(this.driver, 5);
-		wait.until(ExpectedConditions.visibilityOf(recentPost));
+		try{
+			buttonPost.click();
+			WebDriverWait wait = new WebDriverWait(this.driver, 5);
+			wait.until(ExpectedConditions.visibilityOf(recentPost));
+		}catch(Exception e){
+			logsHomePage.error("Posted status not visible.");
+		}
+		
 	}
 
 	public String getPostedStatusText() throws InterruptedException {
@@ -181,13 +207,33 @@ public class PageFactoryHome {
 			buttonStoryDelete.click();
 		}
 	}
-	
-	public void navigateToUrl(String url){
-		driver.get(url);	
-	}
-	
-	public void clickButtonAddFriend(){
-		buttonAddFriend.click();
+
+	public void navigateToUrl(String url) {
+		driver.get(url);
 	}
 
+	public void clickButtonAddFriend() {
+		try{
+			buttonAddFriend.click();
+		}catch(Exception e){
+			logsHomePage.warn("Add friend button not found");
+		}
+		
+	}
+	
+	public void clickIconFriend(){
+		buttonIconFriend.click();
+	}
+	
+	public void acceptFriendRequest(String friendName){
+		try{
+			Hooks.driverFriend.findElement(By.xpath(".//a[@data-tooltip-content='Friend requests']")).click();;
+			WebElement buttonAccept=Hooks.driverFriend.findElement(By.xpath(".//a[contains(text(),'"+friendName+"')]//ancestor::div[@class='clearfix']//button[contains(text(), 'Confirm')]"));
+			buttonAccept.click();
+			WebElement spanFriendConfirmed = Hooks.driverFriend.findElement(By.xpath(".//div[contains(@class,'friendConfirmed')]"));
+			spanFriendConfirmed.isDisplayed();
+		}catch(Exception e){
+			logsHomePage.error("Could not accept incoming request from friend login.");
+		}
+	}
 }

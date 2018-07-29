@@ -5,13 +5,15 @@ import org.testng.Assert;
 import cucumber.api.java.en.*;
 import gui.facebook.resources.PageFactoryHome;
 import gui.facebook.resources.PageFactoryLogin;
-import gui.facebook.resources.Then;
-import gui.facebook.resources.When;
+import gui.facebook.resources.PageFactoryProfile;
 
 public class StepFileHomePage {
 
 	PageFactoryLogin loginElements = new PageFactoryLogin(Hooks.driver);
 	PageFactoryHome homepageElements = new PageFactoryHome(Hooks.driver);
+	PageFactoryLogin friendLoginElements = new PageFactoryLogin(Hooks.driverFriend);
+	PageFactoryHome friendHomepageElements = new PageFactoryHome(Hooks.driverFriend);
+	PageFactoryProfile friendProfilePage = new PageFactoryProfile(Hooks.driverFriend);
 
 	@Given("^user is already logged in$")
 	public void user_is_already_logged_in() throws Throwable {
@@ -71,28 +73,29 @@ public class StepFileHomePage {
 		homepageElements.getPostedStatusActivity().contains(mood);
 	}
 	
-	@When("^user searches for a friend having ID \"([^\"]*)\"$")
-	public void user_searches_for_a_friend_having_ID(String id) {
+	@When("^Jack searches for a friend having ID \"([^\"]*)\"$")
+	public void jack_searches_for_a_friend_having_ID(String id) {
 		homepageElements.navigateToUrl("http://www.facebook.com/"+id);
 	}
 
-	@When("^user sends friend request$")
-	public void user_sends_friend_request(){
+	@When("^Jack sends friend request$")
+	public void jack_sends_friend_request(){
 		homepageElements.clickButtonAddFriend();
 	}
 
-	@When("^friend accepts friend request$")
-	public void friend_accepts_friend_request(){
-		
+	@When("^friend accepts request from \"([^\"]*)\"$")
+	public void friend_accepts_friend_request(String friendName){
+		friendLoginElements.visitWebApp();
+		friendLoginElements.setUsername("ladee.bhaga.3");
+		friendLoginElements.setPassword("321#test");
+		friendLoginElements.clickLogin();
+		friendHomepageElements.acceptFriendRequest(friendName);
 	}
 
-	@Then("^both friend should be connected$")
-	public void both_friend_should_be_connected(){
+	@Then("^\"([^\"]*)\" should be visible in friend list$")
+	public void should_be_visible_in_friend_list(String friend){
+		friendProfilePage.clickProfileIcon();
+		Assert.assertTrue(friendProfilePage.verifyFriendPresent(friend));
 	}
 
-	@Then("^both friend should be visible in friend list of each other$")
-	public void both_friend_should_be_visible_in_friend_list_of_each_other(){
-	}
-	
-	
 }

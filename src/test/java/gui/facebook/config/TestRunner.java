@@ -45,6 +45,7 @@ public class TestRunner {
 		testNGCucumberRunner.finish();
 		new ReportGeneration();
 		Hooks.driver.quit();
+		Hooks.driverFriend.quit();
 	}
 	
 	

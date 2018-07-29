@@ -37,6 +37,7 @@ public class Hooks {
 			ChromeOptions disableNotifications = new ChromeOptions();
 			disableNotifications.addArguments("--disable-notifications");
 			driver = new ChromeDriver(disableNotifications);
+			driverFriend = new ChromeDriver(disableNotifications);
 			/*
 			 * DesiredCapabilities cap = DesiredCapabilities.chrome(); driver =
 			 * new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"),
@@ -48,6 +49,7 @@ public class Hooks {
 			FirefoxOptions disableNotifications = new FirefoxOptions();
 			disableNotifications.addArguments("--disable-notifications");
 			driver = new FirefoxDriver(disableNotifications);
+			driverFriend = new FirefoxDriver(disableNotifications);
 			/*
 			 * DesiredCapabilities cap = DesiredCapabilities.firefox(); driver =
 			 * new RemoteWebDriver(new URL("http://34.205.159.86:4446/wd/hub"),
@@ -59,7 +61,10 @@ public class Hooks {
 			System.out.println("invalid browser type:" + browser);
 		}
 		driver.manage().deleteAllCookies();
+		driverFriend.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driverFriend.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driverFriend.manage().window().maximize();
 		driver.manage().window().maximize();
 	}
 
