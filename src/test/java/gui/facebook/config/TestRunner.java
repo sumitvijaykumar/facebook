@@ -1,14 +1,18 @@
 package gui.facebook.config;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import cucumber.api.CucumberOptions;
+import cucumber.api.java.After;
 import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
 import gui.facebook.reports.ReportGeneration;
+import gui.facebook.stepfiles.CleanUp;
 import gui.facebook.stepfiles.Hooks;
 
 @CucumberOptions(
@@ -23,11 +27,17 @@ import gui.facebook.stepfiles.Hooks;
 		})
 
 public class TestRunner {
+	
+	public static WebDriver userDriver;
+	public static WebDriver friendDriver;
+	
 	private TestNGCucumberRunner testNGCucumberRunner;
 	
 	@BeforeClass(alwaysRun=true)
 	public void setUpClass(){
 		testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
+		userDriver = new Hooks().getWebDriver();
+		friendDriver = new Hooks().getWebDriver();
 	}
 	
 	@Test(groups = "cucumber", description = "Cucumber feature file runner", dataProvider = "features")
@@ -39,13 +49,20 @@ public class TestRunner {
 	public Object[][] features(){
 		return testNGCucumberRunner.provideFeatures();
 	}
+	@After
+	public void test(){
+		System.out.println("after the test.");
+	}
 	
 	@AfterClass(alwaysRun = true)
 	public void tearDownClass(){
+		CleanUp cleanUp = new CleanUp(userDriver);
+		cleanUp.deleteAllFriends();
+		cleanUp.deleteAllPosts();
 		testNGCucumberRunner.finish();
 		new ReportGeneration();
-		Hooks.driver.quit();
-		Hooks.driverFriend.quit();
+		userDriver.quit();
+		friendDriver.quit();
 	}
 	
 	

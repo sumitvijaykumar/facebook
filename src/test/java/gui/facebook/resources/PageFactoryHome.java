@@ -13,6 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import gui.facebook.config.TestRunner;
 import gui.facebook.stepfiles.Hooks;
 
 public class PageFactoryHome {
@@ -121,6 +122,7 @@ public class PageFactoryHome {
 	}
 
 	public void setStatusText(String status) throws InterruptedException {
+		this.reloadPage();
 		textBoxStatus.sendKeys(status);
 	}
 
@@ -187,7 +189,12 @@ public class PageFactoryHome {
 	}
 
 	public String getPostedStatusFriend() {
-		String taggedFriend = textRecentPostTaggedFriend.getText();
+		String taggedFriend="";
+		try{
+			taggedFriend = textRecentPostTaggedFriend.getText();
+		}catch(Exception e){
+			logsHomePage.error("Friend is not tagged in the post.");
+		}
 		return taggedFriend;
 	}
 
@@ -227,10 +234,10 @@ public class PageFactoryHome {
 	
 	public void acceptFriendRequest(String friendName){
 		try{
-			Hooks.driverFriend.findElement(By.xpath(".//a[@data-tooltip-content='Friend requests']")).click();;
-			WebElement buttonAccept=Hooks.driverFriend.findElement(By.xpath(".//a[contains(text(),'"+friendName+"')]//ancestor::div[@class='clearfix']//button[contains(text(), 'Confirm')]"));
+			TestRunner.friendDriver.findElement(By.xpath(".//a[@data-tooltip-content='Friend requests']")).click();;
+			WebElement buttonAccept=TestRunner.friendDriver.findElement(By.xpath(".//a[contains(text(),'"+friendName+"')]//ancestor::div[@class='clearfix']//button[contains(text(), 'Confirm')]"));
 			buttonAccept.click();
-			WebElement spanFriendConfirmed = Hooks.driverFriend.findElement(By.xpath(".//div[contains(@class,'friendConfirmed')]"));
+			WebElement spanFriendConfirmed = TestRunner.friendDriver.findElement(By.xpath(".//div[contains(@class,'friendConfirmed')]"));
 			spanFriendConfirmed.isDisplayed();
 		}catch(Exception e){
 			logsHomePage.error("Could not accept incoming request from friend login.");

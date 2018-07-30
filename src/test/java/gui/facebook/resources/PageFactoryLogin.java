@@ -41,4 +41,14 @@ public class PageFactoryLogin {
 	public void clickLogin(){
 		buttonLogin.click();
 	}
+	
+	public void doLogin(String uname, String pwd){
+		try{
+			setUsername(uname);
+			setPassword(pwd);
+			clickLogin();
+		}catch(Exception e){
+			logsLoginPage.info("Could not find expected elements for login. User might be already logged in.");
+		}
+	}
 }

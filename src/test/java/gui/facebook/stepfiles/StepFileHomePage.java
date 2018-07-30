@@ -1,31 +1,32 @@
 package gui.facebook.stepfiles;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 
-import cucumber.api.java.en.*;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import gui.facebook.config.TestRunner;
 import gui.facebook.resources.PageFactoryHome;
 import gui.facebook.resources.PageFactoryLogin;
 import gui.facebook.resources.PageFactoryProfile;
 
 public class StepFileHomePage {
 
-	PageFactoryLogin loginElements = new PageFactoryLogin(Hooks.driver);
-	PageFactoryHome homepageElements = new PageFactoryHome(Hooks.driver);
-	PageFactoryLogin friendLoginElements = new PageFactoryLogin(Hooks.driverFriend);
-	PageFactoryHome friendHomepageElements = new PageFactoryHome(Hooks.driverFriend);
-	PageFactoryProfile friendProfilePage = new PageFactoryProfile(Hooks.driverFriend);
+	PageFactoryLogin loginElements = new PageFactoryLogin(TestRunner.userDriver);
+	PageFactoryHome homepageElements = new PageFactoryHome(TestRunner.userDriver);
+	PageFactoryLogin friendLoginElements = new PageFactoryLogin(TestRunner.friendDriver);
+	PageFactoryHome friendHomepageElements = new PageFactoryHome(TestRunner.friendDriver);
+	PageFactoryProfile friendProfilePage = new PageFactoryProfile(TestRunner.friendDriver);
 
 	@Given("^user is already logged in$")
 	public void user_is_already_logged_in() throws Throwable {
 		loginElements.visitWebApp();
-		loginElements.setUsername("sumitpawar0@yahoo.com");
-		loginElements.setPassword("myFb123#");
-		loginElements.clickLogin();
+		loginElements.doLogin("sumitpawar0@yahoo.com", "myFb123#");
 	}
 
 	@When("^user writes status \"([^\"]*)\"$")
 	public void user_writes_status(String string) throws Throwable {
-		// Assert.assertTrue(homepageElements.getElementStatusBox().isDisplayed());
 		homepageElements.clickIconHome();
 		homepageElements.setStatusText(string);
 	}
@@ -64,7 +65,7 @@ public class StepFileHomePage {
 
 	@Then("^\"([^\"]*)\" is tagged in the status$")
 	public void is_tagged_in_the_status(String taggedFriend) throws Throwable {
-		Assert.assertEquals(homepageElements.getPostedStatusFriend(), taggedFriend);
+		Assert.assertTrue(homepageElements.getPostedStatusFriend().contains(taggedFriend));
 	}
 
 	@Then("^status has \"([^\"]*)\" with \"([^\"]*)\"$")
@@ -72,19 +73,19 @@ public class StepFileHomePage {
 		homepageElements.getPostedStatusActivity().contains(activity);
 		homepageElements.getPostedStatusActivity().contains(mood);
 	}
-	
+
 	@When("^Jack searches for a friend having ID \"([^\"]*)\"$")
 	public void jack_searches_for_a_friend_having_ID(String id) {
-		homepageElements.navigateToUrl("http://www.facebook.com/"+id);
+		homepageElements.navigateToUrl("http://www.facebook.com/" + id);
 	}
 
 	@When("^Jack sends friend request$")
-	public void jack_sends_friend_request(){
+	public void jack_sends_friend_request() {
 		homepageElements.clickButtonAddFriend();
 	}
 
-	@When("^friend accepts request from \"([^\"]*)\"$")
-	public void friend_accepts_friend_request(String friendName){
+	@When("^Barack accepts request from \"([^\"]*)\"$")
+	public void friend_accepts_friend_request(String friendName) {
 		friendLoginElements.visitWebApp();
 		friendLoginElements.setUsername("ladee.bhaga.3");
 		friendLoginElements.setPassword("321#test");
@@ -93,8 +94,9 @@ public class StepFileHomePage {
 	}
 
 	@Then("^\"([^\"]*)\" should be visible in friend list$")
-	public void should_be_visible_in_friend_list(String friend){
+	public void should_be_visible_in_friend_list(String friend) {
 		friendProfilePage.clickProfileIcon();
 		Assert.assertTrue(friendProfilePage.verifyFriendPresent(friend));
 	}
+
 }
