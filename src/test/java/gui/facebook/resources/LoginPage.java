@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class PageFactoryLogin {
+public class LoginPage {
 	WebDriver driver;
 	
-	private static final Logger logsLoginPage = LogManager.getLogger(PageFactoryHome.class.getName());
+	private static final Logger logsLoginPage = LogManager.getLogger(HomePage.class.getName());
 	
 	@FindBy(id="email")
 	WebElement textBoxEmail;
@@ -21,7 +21,7 @@ public class PageFactoryLogin {
 	@FindBy(id="loginbutton")
 	WebElement buttonLogin;
 	
-	public PageFactoryLogin(WebDriver driver){
+	public LoginPage(WebDriver driver){
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}

@@ -1,20 +1,23 @@
-package gui.facebook.config;
+package gui.facebook.Runner;
 
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import cucumber.api.CucumberOptions;
-import cucumber.api.java.After;
+import cucumber.api.Scenario;
+import cucumber.api.junit.Cucumber;
 import cucumber.api.testng.CucumberFeatureWrapper;
 import cucumber.api.testng.TestNGCucumberRunner;
 import gui.facebook.reports.ReportGeneration;
-import gui.facebook.stepfiles.CleanUp;
-import gui.facebook.stepfiles.Hooks;
+import gui.facebook.resources.Utilities;
 
+@RunWith(Cucumber.class)
 @CucumberOptions(
 		features = "src/test/java/gui/facebook/features", 
 		glue = { "gui.facebook.stepfiles" },
@@ -36,8 +39,8 @@ public class TestRunner {
 	@BeforeClass(alwaysRun=true)
 	public void setUpClass(){
 		testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
-		userDriver = new Hooks().getWebDriver();
-		friendDriver = new Hooks().getWebDriver();
+		userDriver = new DriverUtilities().getWebDriver();
+		friendDriver = new DriverUtilities().getWebDriver();
 	}
 	
 	@Test(groups = "cucumber", description = "Cucumber feature file runner", dataProvider = "features")
@@ -49,14 +52,19 @@ public class TestRunner {
 	public Object[][] features(){
 		return testNGCucumberRunner.provideFeatures();
 	}
-	@After
+	@BeforeTest
 	public void test(){
-		System.out.println("after the test.");
+		System.out.println("before the test.");
+	}
+	
+	@AfterTest
+	public void saveScreenShot(Scenario scenario){
+		new DriverUtilities().takeScreenShot(scenario);
 	}
 	
 	@AfterClass(alwaysRun = true)
 	public void tearDownClass(){
-		CleanUp cleanUp = new CleanUp(userDriver);
+		Utilities cleanUp = new Utilities(userDriver);
 		cleanUp.deleteAllFriends();
 		cleanUp.deleteAllPosts();
 		testNGCucumberRunner.finish();

@@ -1,4 +1,4 @@
-package gui.facebook.stepfiles;
+package gui.facebook.Runner;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,16 +15,14 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 
-public class Hooks {
-	private final static Logger logHooks = LogManager.getLogger(Hooks.class.getName());
+public class DriverUtilities {
+	private final static Logger logHooks = LogManager.getLogger(DriverUtilities.class.getName());
 	private WebDriver driver;
-	//public static WebDriver driverFriend; //for accepting friend request
 
-	//@Before
 	public void configDriver()  {
 		try{
-		System.setProperty("webdriver.chrome.driver","src\\test\\java\\gui\\facebook\\resources\\chromedriver.exe");
-		System.setProperty("webdriver.gecko.driver","src\\test\\java\\gui\\facebook\\resources\\geckodriver.exe");
+		System.setProperty("webdriver.chrome.driver","src\\test\\java\\gui\\facebook\\resources\\browserDrivers\\chromedriver.exe");
+		System.setProperty("webdriver.gecko.driver","src\\test\\java\\gui\\facebook\\resources\\browserDrivers\\geckodriver.exe");
 		System.setProperty("log4j.configurationFile","src\\test\\java\\gui\\facebook\\reports\\log4j2.xml");
 		}catch(Exception e){
 			logHooks.error("Not able to set system properties. Check path to system variables.");
@@ -67,7 +65,6 @@ public class Hooks {
 		driver.manage().window().maximize();
 	}
 
-	@After
 	public void takeScreenShot(Scenario scenario) {
 		if (scenario.isFailed()) {
 			if (this.driver instanceof TakesScreenshot) {

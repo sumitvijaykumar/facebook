@@ -1,26 +1,22 @@
-package gui.facebook.stepfiles;
+package gui.facebook.resources;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import gui.facebook.resources.PageFactoryProfile;
 
-public class CleanUp {
+public class Utilities {
 
 	WebDriver driver;
 
-	public static final Logger logsCleanUp = LogManager.getLogger(PageFactoryProfile.class.getName());
+	public static final Logger logsCleanUp = LogManager.getLogger(ProfilePage.class.getName());
 
-	public CleanUp(WebDriver driver) {
+	public Utilities(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		logsCleanUp.info("Clean up elements initialized.");

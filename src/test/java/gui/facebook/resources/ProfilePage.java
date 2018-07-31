@@ -10,12 +10,12 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class PageFactoryProfile {
+public class ProfilePage {
 	WebDriver driver;
 	
-	public static final Logger logsProfilePage = LogManager.getLogger(PageFactoryProfile.class.getName());
+	public static final Logger logsProfilePage = LogManager.getLogger(ProfilePage.class.getName());
 	
-	public PageFactoryProfile(WebDriver driver){
+	public ProfilePage(WebDriver driver){
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		logsProfilePage.info("Profile page factory elements initialized.");
