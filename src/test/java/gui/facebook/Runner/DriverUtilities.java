@@ -45,7 +45,7 @@ public class DriverUtilities {
 			this.driver = new ChromeDriver(disableNotifications);
 */			
 			DesiredCapabilities cap = DesiredCapabilities.chrome(); 
-			driver = new RemoteWebDriver(new URL("http://34.238.160.61:4446/wd/hub"),cap);
+			driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"),cap);
 		}
 
 		else if (browser.equalsIgnoreCase("ff")) {
@@ -55,7 +55,7 @@ public class DriverUtilities {
 			this.driver = new FirefoxDriver(disableNotifications);
 */			
 			DesiredCapabilities cap = DesiredCapabilities.firefox(); 
-			driver = new RemoteWebDriver(new URL("http://34.238.160.61:4446/wd/hub"), cap);
+			driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), cap);
 		}
 
 		else {
