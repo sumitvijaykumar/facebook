@@ -46,7 +46,7 @@ public class DriverUtilities {
 */			
 			DesiredCapabilities cap = DesiredCapabilities.chrome(); 
 			this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"),cap);
-			logHooks.info("remote web driver for firefox initialized.");
+			logHooks.info("remote web driver for chrome initialized.");
 		}
 
 		else if (browser.equalsIgnoreCase("ff")) {
@@ -57,7 +57,7 @@ public class DriverUtilities {
 */			
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
 			this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), cap);
-			logHooks.info("remote web driver for chrome initialized.");
+			logHooks.info("remote web driver for firefox initialized.");
 		}
 
 		else {
@@ -85,6 +85,7 @@ public class DriverUtilities {
 	
 	public WebDriver getWebDriver(){
 		this.configDriver();
+		logHooks.info("returning web driver object:"+driver.toString());
 		return this.driver;
 	}
 	
