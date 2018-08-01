@@ -9,7 +9,10 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -39,27 +42,30 @@ public class DriverUtilities {
 		try {
 			if (browser.equalsIgnoreCase("chrome")) {
 
-				/*
-				 * ChromeOptions disableNotifications = new ChromeOptions();
-				 * disableNotifications.addArguments("--disable-notifications");
-				 * this.driver = new ChromeDriver(disableNotifications);
-				 */
+				
+				ChromeOptions disableNotifications = new ChromeOptions();
+				disableNotifications.addArguments("--disable-notifications");
+				this.driver = new ChromeDriver(disableNotifications);
+			/*	 
 				logHooks.info("Initializing remote driver for "+browser);
 				ChromeOptions chromeBrowser = new ChromeOptions();
 				this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), chromeBrowser);
 				logHooks.info("remote web driver for "+browser+" initialized.");
+			*/
 			}
 
 			else if (browser.equalsIgnoreCase("ff")) {
 
-				/*
-				 * FirefoxOptions disableNotifications = new FirefoxOptions();
-				 * disableNotifications.addArguments("--disable-notifications");
-				 * this.driver = new FirefoxDriver(disableNotifications);
-				 */
-				DesiredCapabilities cap = DesiredCapabilities.firefox();
-				this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), cap);
-				logHooks.info("remote web driver for firefox initialized.");
+				
+				FirefoxOptions disableNotifications = new FirefoxOptions();
+				disableNotifications.addArguments("--disable-notifications");
+				this.driver = new FirefoxDriver(disableNotifications);
+				 
+				/*logHooks.info("Initializing remote driver for "+browser);
+				FirefoxOptions firefoxBrowser = new FirefoxOptions();
+				this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), firefoxBrowser);
+				logHooks.info("remote web driver for "+browser+" initialized.");
+				*/
 			}
 
 			else {
@@ -68,9 +74,9 @@ public class DriverUtilities {
 			driver.manage().deleteAllCookies();
 			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
-		} catch (MalformedURLException e) {
+		} /*catch (MalformedURLException e) {
 			logHooks.error("Could not initialize remote driver.");
-		} catch (Exception e) {
+		}*/ catch (Exception e) {
 			logHooks.error("Could not initialize driver.");
 		}
 	}
