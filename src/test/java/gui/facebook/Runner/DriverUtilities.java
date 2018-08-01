@@ -22,12 +22,14 @@ public class DriverUtilities {
 	private final static Logger logHooks = LogManager.getLogger(DriverUtilities.class.getName());
 	private WebDriver driver;
 
-	public void configDriver()  {
-		try{
-		System.setProperty("webdriver.chrome.driver","src\\test\\java\\gui\\facebook\\resources\\browserDrivers\\chromedriver.exe");
-		System.setProperty("webdriver.gecko.driver","src\\test\\java\\gui\\facebook\\resources\\browserDrivers\\geckodriver.exe");
-		System.setProperty("log4j.configurationFile","src\\test\\java\\gui\\facebook\\reports\\log4j2.xml");
-		}catch(Exception e){
+	public void configDriver() {
+		try {
+			System.setProperty("webdriver.chrome.driver",
+					"src\\test\\java\\gui\\facebook\\resources\\browserDrivers\\chromedriver.exe");
+			System.setProperty("webdriver.gecko.driver",
+					"src\\test\\java\\gui\\facebook\\resources\\browserDrivers\\geckodriver.exe");
+			System.setProperty("log4j.configurationFile", "src\\test\\java\\gui\\facebook\\reports\\log4j2.xml");
+		} catch (Exception e) {
 			logHooks.error("Not able to set system properties. Check path to system variables.");
 		}
 		String browser = System.getProperty("browser");
@@ -37,40 +39,41 @@ public class DriverUtilities {
 				browser = "chrome";
 			}
 		}
-		try{
-		if (browser.equalsIgnoreCase("chrome")) {
-			
-/*			ChromeOptions disableNotifications = new ChromeOptions();
-			disableNotifications.addArguments("--disable-notifications");
-			this.driver = new ChromeDriver(disableNotifications);
-*/			
-			logHooks.info("Initializing remote driver for "+browser);
-			DesiredCapabilities cap = new DesiredCapabilities();
-			cap.setBrowserName("Chrome");
-			this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"),cap);
-			logHooks.info("remote web driver for chrome initialized.");
-		}
+		try {
+			if (browser.equalsIgnoreCase("chrome")) {
 
-		else if (browser.equalsIgnoreCase("ff")) {
-			
-/*			FirefoxOptions disableNotifications = new FirefoxOptions();
-			disableNotifications.addArguments("--disable-notifications");
-			this.driver = new FirefoxDriver(disableNotifications);
-*/			
-			DesiredCapabilities cap = DesiredCapabilities.firefox();
-			this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), cap);
-			logHooks.info("remote web driver for firefox initialized.");
-		}
+				/*
+				 * ChromeOptions disableNotifications = new ChromeOptions();
+				 * disableNotifications.addArguments("--disable-notifications");
+				 * this.driver = new ChromeDriver(disableNotifications);
+				 */
+				logHooks.info("Initializing remote driver for "+browser);
+				DesiredCapabilities cap = DesiredCapabilities.chrome();
+				this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), cap);
+				logHooks.info("remote web driver for "+browser+" initialized.");
+			}
 
-		else {
-			System.out.println("invalid browser type:" + browser);
-		}
-		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		driver.manage().window().maximize();
-		}catch(MalformedURLException e){
+			else if (browser.equalsIgnoreCase("ff")) {
+
+				/*
+				 * FirefoxOptions disableNotifications = new FirefoxOptions();
+				 * disableNotifications.addArguments("--disable-notifications");
+				 * this.driver = new FirefoxDriver(disableNotifications);
+				 */
+				DesiredCapabilities cap = DesiredCapabilities.firefox();
+				this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), cap);
+				logHooks.info("remote web driver for firefox initialized.");
+			}
+
+			else {
+				System.out.println("invalid browser type:" + browser);
+			}
+			driver.manage().deleteAllCookies();
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().window().maximize();
+		} catch (MalformedURLException e) {
 			logHooks.error("Could not initialize remote driver.");
-		}catch(Exception e){
+		} catch (Exception e) {
 			logHooks.error("Could not initialize driver.");
 		}
 	}
@@ -84,12 +87,11 @@ public class DriverUtilities {
 			}
 		}
 	}
-	
-	public WebDriver getWebDriver(){
+
+	public WebDriver getWebDriver() {
 		this.configDriver();
-		logHooks.info("returning web driver object:"+driver.toString());
+		logHooks.info("returning web driver object:" + driver.toString());
 		return this.driver;
 	}
-	
-	
+
 }
