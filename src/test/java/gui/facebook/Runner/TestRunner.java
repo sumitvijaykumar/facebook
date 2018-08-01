@@ -52,10 +52,6 @@ public class TestRunner {
 	public Object[][] features(){
 		return testNGCucumberRunner.provideFeatures();
 	}
-	@BeforeTest
-	public void test(){
-		System.out.println("before the test.");
-	}
 	
 	@AfterTest
 	public void saveScreenShot(Scenario scenario){
