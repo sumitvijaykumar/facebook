@@ -45,6 +45,7 @@ public class DriverUtilities {
 			this.driver = new ChromeDriver(disableNotifications);
 */			
 			DesiredCapabilities cap = DesiredCapabilities.chrome(); 
+			logHooks.info("Intializing remote web driver for Chrome.");
 			this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"),cap);
 		}
 
@@ -54,7 +55,8 @@ public class DriverUtilities {
 			disableNotifications.addArguments("--disable-notifications");
 			this.driver = new FirefoxDriver(disableNotifications);
 */			
-			DesiredCapabilities cap = DesiredCapabilities.firefox(); 
+			DesiredCapabilities cap = DesiredCapabilities.firefox();
+			logHooks.info("Intializing remote web driver for Firefox.");
 			this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), cap);
 		}
 
