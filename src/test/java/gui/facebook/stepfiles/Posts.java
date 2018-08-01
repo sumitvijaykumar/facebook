@@ -57,7 +57,7 @@ public class Posts {
 		Common.homepageElements.getPostedStatusActivity().contains(mood);
 	}
 
-	@When("^user scolls down$")
+	@When("^user scrolls down$")
 	public void user_scolls_down() {
 
 	}
