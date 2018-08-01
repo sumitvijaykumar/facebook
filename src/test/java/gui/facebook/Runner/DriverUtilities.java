@@ -44,6 +44,7 @@ public class DriverUtilities {
 			disableNotifications.addArguments("--disable-notifications");
 			this.driver = new ChromeDriver(disableNotifications);
 */			
+			logHooks.info("Initializing remote driver for "+browser);
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setBrowserName("Chrome");
 			this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"),cap);
