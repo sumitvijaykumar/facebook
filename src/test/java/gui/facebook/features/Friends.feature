@@ -1,7 +1,8 @@
 Feature: As a newly signed up user on Facebook, user goes on exploring facebook app and gets started with using facebook.
 
 Background:
-	Given user is already logged in
+	Given "Jack" is logged in
+	And "Barack" is logged in
 
 Scenario:
 As a logged in user, user should be able to search a friend on facebook and send him a friend request.

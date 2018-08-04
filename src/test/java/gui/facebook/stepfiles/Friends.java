@@ -10,7 +10,7 @@ public class Friends {
 
 	@When("^Jack searches for a friend having ID \"([^\"]*)\"$")
 	public void jack_searches_for_a_friend_having_ID(String id) {
-		Common.homepageElements.navigateToUrl("http://www.facebook.com/" + id);
+		Common.loginElements.navigateToUrl("http://www.facebook.com/" + id);
 	}
 
 	@When("^Jack sends friend request$")

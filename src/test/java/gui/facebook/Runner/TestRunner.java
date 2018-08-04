@@ -21,7 +21,7 @@ import gui.facebook.resources.Utilities;
 @CucumberOptions(
 		features = "src/test/java/gui/facebook/features", 
 		glue = { "gui.facebook.stepfiles" },
-		tags={"@post"},
+		tags={"@message"},
 		format= {
 				"pretty",
 				"html:target/cucumber-reports/cucumber-pretty",
@@ -53,10 +53,10 @@ public class TestRunner {
 		return testNGCucumberRunner.provideFeatures();
 	}
 	
-	@AfterTest
-	public void saveScreenShot(Scenario scenario){
+	//@AfterTest
+/*	public void saveScreenShot(Scenario scenario){
 		new DriverUtilities().takeScreenShot(scenario);
-	}
+	}*/
 	
 	@AfterClass(alwaysRun = true)
 	public void tearDownClass(){

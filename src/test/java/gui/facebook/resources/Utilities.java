@@ -90,10 +90,10 @@ public class Utilities {
 				buttonFeedHide.click();
 			}
 			buttonConfirmDeletePost.click();
-			logsCleanUp.info("Feed deleted");
+			logsCleanUp.info("Teardown: Feeds deleted");
 
 		} catch (Exception e) {
-			logsCleanUp.error("Unable to delete posts.");
+			logsCleanUp.error("Teardown: Unable to delete posts.");
 		}
 	}
 }

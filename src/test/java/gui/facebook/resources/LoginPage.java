@@ -24,6 +24,11 @@ public class LoginPage {
 	public LoginPage(WebDriver driver){
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		logsLoginPage.info("Login page factory elements initialized");
+	}
+	
+	public void navigateToUrl(String url) {
+		driver.get(url);
 	}
 	
 	public void visitWebApp(){
@@ -44,6 +49,7 @@ public class LoginPage {
 	
 	public void doLogin(String uname, String pwd){
 		try{
+			logsLoginPage.info("Logging in with user: "+uname);
 			setUsername(uname);
 			setPassword(pwd);
 			clickLogin();

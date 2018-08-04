@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.AfterTest;
 
 import cucumber.api.Scenario;
 
@@ -43,29 +44,29 @@ public class DriverUtilities {
 			if (browser.equalsIgnoreCase("chrome")) {
 
 				
-				ChromeOptions disableNotifications = new ChromeOptions();
-				disableNotifications.addArguments("--disable-notifications");
-				this.driver = new ChromeDriver(disableNotifications);
-			/*	 
+			//	ChromeOptions disableNotifications = new ChromeOptions();
+			//	disableNotifications.addArguments("--disable-notifications");
+			//	this.driver = new ChromeDriver(disableNotifications);
+				 
 				logHooks.info("Initializing remote driver for "+browser);
 				ChromeOptions chromeBrowser = new ChromeOptions();
-				this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), chromeBrowser);
+				this.driver = new RemoteWebDriver(new URL("http://52.91.61.12:4446/wd/hub"), chromeBrowser);
 				logHooks.info("remote web driver for "+browser+" initialized.");
-			*/
+			
 			}
 
 			else if (browser.equalsIgnoreCase("ff")) {
 
 				
-				FirefoxOptions disableNotifications = new FirefoxOptions();
-				disableNotifications.addArguments("--disable-notifications");
-				this.driver = new FirefoxDriver(disableNotifications);
+				//FirefoxOptions disableNotifications = new FirefoxOptions();
+				//disableNotifications.addArguments("--disable-notifications");
+				//this.driver = new FirefoxDriver(disableNotifications);
 				 
-				/*logHooks.info("Initializing remote driver for "+browser);
+				logHooks.info("Initializing remote driver for "+browser);
 				FirefoxOptions firefoxBrowser = new FirefoxOptions();
-				this.driver = new RemoteWebDriver(new URL("http://18.204.194.238:4446/wd/hub"), firefoxBrowser);
+				this.driver = new RemoteWebDriver(new URL("http://52.91.61.12:4446/wd/hub"), firefoxBrowser);
 				logHooks.info("remote web driver for "+browser+" initialized.");
-				*/
+				
 			}
 
 			else {
@@ -81,6 +82,7 @@ public class DriverUtilities {
 		}
 	}
 
+	@AfterTest
 	public void takeScreenShot(Scenario scenario) {
 		if (scenario.isFailed()) {
 			if (this.driver instanceof TakesScreenshot) {

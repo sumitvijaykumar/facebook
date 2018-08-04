@@ -13,9 +13,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import gui.facebook.Runner.DriverUtilities;
-import gui.facebook.Runner.TestRunner;
-
 public class HomePage {
 	WebDriver driver;
 
@@ -101,7 +98,7 @@ public class HomePage {
 	
 	@FindBy(xpath=".//a[@data-tooltip-content='Friend requests']")
 	WebElement iconFriend;
-
+	
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -216,10 +213,6 @@ public class HomePage {
 			buttonStoryOption.click();
 			buttonStoryDelete.click();
 		}
-	}
-
-	public void navigateToUrl(String url) {
-		driver.get(url);
 	}
 
 	public void clickButtonAddFriend() {
